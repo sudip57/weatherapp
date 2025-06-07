@@ -1,0 +1,27 @@
+@import "tailwindcss";
+body{
+  background-color: rgb(16, 16, 16);
+}
+.gray{
+  background-color: rgb(29, 29, 29);
+}
+.lightgray{
+  background-color: rgb(53, 53, 53);
+}
+.roboto{
+  font-family: roboto;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2b2b2b; /* Dark track */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555; /* Dark thumb */
+  border-radius: 10px;
+}
