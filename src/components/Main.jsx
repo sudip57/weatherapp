@@ -9,8 +9,8 @@ const Main = (props) => {
   const { seven_day_forcast,curloc ,lat,lng,setcurloc,weatherData} = props;
 
   return (
-    <div className="flex flex-col overflow-y-scroll sm:flex sm:flex-row  sm:w-[calc(100%-100px)] h-[85vh] items-center ">
-      <div className="left h-auto sm:w-[40%] sm:h-full curretnloc flex flex-col gap-2 border ">
+    <div className="flex flex-col  sm:overflow-visible sm:flex sm:flex-row  sm:w-[calc(100%-100px)] h-[85vh] items-center ">
+      <div className="left h-auto sm:w-[40%] sm:h-full curretnloc flex flex-col gap-2 ">
         <div className="gray w-full sm:h-[50%] rounded-2xl">
           <Today curloc={curloc} lat={lat} lng={lng} setcurloc={setcurloc} weatherData={weatherData} />
         </div>

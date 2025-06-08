@@ -120,7 +120,7 @@ const Today = (props) => {
                 : console.log("loading")}
             </p>
             </div>
-            <p className="sm:text-[13px] text-[10px] ">
+            <p className="sm:text-[13px] text-[10px] text-right ">
               Feels like{" "}
               {weatherData
                 ? weatherData.list[0].main.feels_like

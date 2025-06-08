@@ -34,7 +34,7 @@ function App() {
   
   useEffect(() => {
     async function getWeatherInfo() {
-      const wAPI = "ea644d2e82b5bb751764a5dc3ac658e5";
+      const wAPI = import.meta.env.VITE_WEATHER_API;
       const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&units=metric&appid=${wAPI}`;
       try {
         const res = await fetch(url);
