@@ -25,3 +25,40 @@ body{
   background: #555; /* Dark thumb */
   border-radius: 10px;
 }
+/* @media (width<=1000px) {
+  .tab{
+    padding: 2px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  .imgcontainer{
+    
+    width: 80px;
+    height: 50px;
+   
+  }
+  .suninfo{
+    margin: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .suntime{
+    font-size: 15px;
+  }
+  .statuscard{
+    border: 2px solid red;
+    font-size: 15px;
+  }
+  .wind{
+    display: flex;
+    border: 2px solid red;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+
+  }
+} */

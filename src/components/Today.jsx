@@ -90,37 +90,37 @@ const Today = (props) => {
   }, [lat, lng]);
 
   return (
-    <div className="h-full">
+    <div className="h-full  -amber-100">
       <div className="currentloc flex justify-between m-5 roboto text-white">
-        <div className="min-h-[30px] rounded-xl lightgray flex justify-center items-center">
+        <div className="min-h-[30px] rounded-xl lightgray flex justify-center items-center  text-[15px] sm:text-xl">
           <p className="p-2 text-center">{curloc}</p>
         </div>
-        <div className="w-[40px] h-[30px] rounded-xl lightgray flex justify-center items-center">
-          <p>C</p>
-        </div>
       </div>
-      <div className="flex m-5 h-[70%] ">
-        <div className="Day text-2xl roboto text-white w-1/3">
+      <div className="flex m-5 h-[70%] items-center sm:flex ">
+        <div className="Day sm:text-2xl roboto text-white w-1/3">
           <p>{day}</p>
           <p>{date}</p>
         </div>
-        <div className="flex  w-1/3 ">
-          <img className="object-contain " src={`${desc}.png`} alt="" />
+        <div className="w-[50%] overflow-hidden flex items-center justify-center">
+
+          <img className="max-w-full max-h-full object-contain" src={`${desc}.png`} alt="" />
         </div>
-        <div className="details text-2xl flex flex-col justify-around items-end text-white w-1/3">
+        <div className="details sm:text-2xl flex flex-col justify-around items-end text-white w-1/3  h-[70%] sm:h-full py-2">
           <p>
             {weatherData
               ? weatherData.list[0].main.temp
               : console.log("loading")}
             °C
           </p>
-          <div className="flex flex-col items-end">
-            <p className="text-[20px]">
+          <div className="flex flex-col items-end  ">
+            <div className="text-right">
+              <p className="sm:text-[20px]">
               {weatherData
                 ? weatherData.list[0].weather[0].description
                 : console.log("loading")}
             </p>
-            <p className="text-[13px]">
+            </div>
+            <p className="sm:text-[13px] text-[10px] ">
               Feels like{" "}
               {weatherData
                 ? weatherData.list[0].main.feels_like

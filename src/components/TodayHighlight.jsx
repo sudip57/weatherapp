@@ -41,10 +41,10 @@ const TodayHighlight = (props) => {
       <div className="title roboto font-bold text-white text-2xl m-5">
         <h1>Today's Highlight</h1>
       </div>
-      <div className="flex gap-3 mx-5 items-center">
-        <div className="w-[50%] flex flex-col text-white gap-2">
-          <div className="flex items-center flex  gap-2">
-            <div className="wind lightgray w-40 h-30  rounded-2xl flex flex-col items-end justify-between p-4 roboto">
+      <div className="flex flex-col sm:flex sm:flex-row gap-3 sm:gap-3 mx-1 sm:mx-5 items-center sm:w-[95%] sm:h-[70%]  overflow-y-scroll sm:overflow-visible rounded-2xl px-2">
+        <div className="statuscard w-full sm:w-[50%] sm:h-[100%] flex flex-col text-white gap-2  ">
+          <div className="flex justify-center items-center max-h-[50%]  gap-2  ">
+            <div className="wind lightgray w-[50%] h-full sm:w-40 sm:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
               <p className="1st entry">Wind Staus</p>
               <p className="2nd entry">
                 <span className="font-bold">
@@ -56,7 +56,7 @@ const TodayHighlight = (props) => {
               </p>
               <p className="3rd entry">{getCurrentTime12hr()}</p>
             </div>
-            <div className="humidity lightgray w-40 h-30  rounded-2xl flex flex-col items-end justify-between p-4 roboto">
+            <div className="humidity lightgray  w-[50%] h-full sm:w-40 sm:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
               <p className="1st entry">Humidity</p>
               <p className="2nd entry">
                 <span className="font-bold">
@@ -69,15 +69,15 @@ const TodayHighlight = (props) => {
               <p className="3rd entry">{getCurrentTime12hr()}</p>
             </div>
           </div>
-          <div className="flex items-center flex  gap-2">
-            <div className="uvidnex lightgray w-40 h-30  rounded-2xl flex flex-col items-end justify-between p-4 roboto">
+          <div className=" flex items-center gap-2 h-[50%] justify-center">
+            <div className="uvidnex lightgray w-[50%] h-full sm:w-40 sm:h-30  rounded-2xl flex flex-col items-end justify-between p-4 roboto ">
               <p className="1st entry">Wind Status</p>
               <p className="2nd entry">
                 <span className="font-bold">7.90</span> km/h
               </p>
               <p className="3rd entry">9:00 AM</p>
             </div>
-            <div className="visibility lightgray w-40 h-30  rounded-2xl flex flex-col items-end justify-between p-4 roboto">
+            <div className="visibility lightgray  w-[50%] h-full sm:w-40 sm:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
               <p className="1st entry">Visibility</p>
               <p className="2nd entry">
                 <span className="font-bold">{Visibility()}</span>
@@ -86,33 +86,33 @@ const TodayHighlight = (props) => {
             </div>
           </div>
         </div>
-        <div className="w-full flex flex-col gap-2  ">
-          <div className=" lightgray h-fit w-full rounded-2xl flex flex-wrap justify-between items-center p-4 roboto text-white">
-            <div className="flex items-center justify-center">
+        <div className="w-full h-full flex flex-col gap-2  ">
+          <div className="tab h-[50%] lightgray  w-full rounded-2xl flex flex-wrap justify-between items-center p-4 roboto text-white">
+            <div className="imgcontainer w-[100px] h-[80%] overflow-hidden flex items-center justify-center">
               <img
-              className="max-w-40 h-auto rounded-2xl object-cover"
-              src="sunrise.jpg"
-              alt=""
-            />
+                className="max-w-full max-h-full object-contain rounded-xl"
+                src="sunrise.jpg"
+                alt=""
+              />
             </div>
-            
-            <div>
+
+            <div className="suninfo">
               <p className="">Sunrise</p>
-              <p className="font-bold text-2xl">{sunrise}</p>
+              <p className="suntime font-bold text-2xl">{sunrise}</p>
             </div>
           </div>
-          <div className=" lightgray w-full rounded-2xl flex flex-wrap justify-between items-center p-4 roboto text-white">
-            <div className="flex items-center justify-center">
+          <div className="tab h-[50%] lightgray w-full rounded-2xl flex flex-wrap justify-between items-center p-4 roboto text-white">
+            <div className="imgcontainer w-[100px] h-[80%] overflow-hidden flex items-center justify-center ">
               <img
-                className="max-w-40 max-h-full rounded-2xl object-contain"
+                className="max-w-full max-h-full object-contain rounded-xl"
                 src="sunset.jpg"
                 alt="Sunset"
               />
             </div>
 
-            <div>
+            <div className="suninfo">
               <p className="">Sunset</p>
-              <p className="font-bold text-2xl">{sunset}</p>
+              <p className="suntime font-bold text-2xl">{sunset}</p>
             </div>
           </div>
         </div>

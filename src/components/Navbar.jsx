@@ -39,8 +39,8 @@ const Navbar = (props) => {
   };
   console.log(storedValue);
   return (
-    <div className="m-5  flex justify-end">
-      <div className="flex rounded-full gray w-1/5 justify-center items-center px-5 text-gray-400">
+    <div className="m-5  flex sm:justify-end justify-center">
+      <div className="flex rounded-full gray sm:w-[300px] justify-center items-center px-5 text-gray-400">
         <i className="fa-solid fa-magnifying-glass text-2xl"></i>
         <input
           value={inputValue}

@@ -71,7 +71,7 @@ function App() {
     <>
       <div className="app">
         <Navbar coords={coords} setCoords={setCoords} />
-        <main className="flex mx-5">
+        <main className="flex flex-col mx-5 sm:flex sm:flex-row">
           <Sidebar />
           <Main
             curloc={curloc}
