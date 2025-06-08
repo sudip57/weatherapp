@@ -6,55 +6,81 @@ import Main from "./components/Main";
 
 function App() {
   const [curloc, setcurloc] = useState();
-  const fetchPlaceName = async (lat, lng) => {
-    const apiKey = "6cfe7030e96e450ab12143c0f8abfa7f";
-    const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}`;
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      console.log(data);
-      const place = data.results[0].formatted;
-      return place;
-    } catch (error) {
-      console.error("Failed to fetch place name:", error);
-    }
-  };
-function removePinFromAddress(rawAddress) {
-  let cleaned = rawAddress.replace(/-\s*\d{6}/g, '');
-  const parts = cleaned
-    .split(',')
-    .map(p => p.trim())
-    .filter(p => !/^\d{6}$/.test(p)); 
-  return parts;
-}
+  const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState(null);
+  const [weatherData, setWeatherData] = useState(null);
+  const [coords, setCoords] = useState({lat,lng});
+  const [seven_day_forcast, setseven_day_forcast] = useState([]);
+  useEffect(() => {
+    setLat(coords.lat)
+    setLng(coords.lng)
+  }, [coords]);
   function getCurrentLoc() {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
-        const data = await fetchPlaceName(
-          position.coords.latitude,
-          position.coords.longitude
-        );
-        const list = removePinFromAddress(data);
-        const newData = list[1]+", "+list[2]+", "+list[4];
-        setcurloc(newData);
-        console.log(newData);
+        setLat(position.coords.latitude);
+        setLng(position.coords.longitude);
       },
       (error) => {
         console.log("Failed to fetch location", error);
       }
     );
   }
-
+  
   useEffect(() => {
     getCurrentLoc();
   }, []);
+   
+  
+  useEffect(() => {
+    async function getWeatherInfo() {
+      const wAPI = "ea644d2e82b5bb751764a5dc3ac658e5";
+      const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&units=metric&appid=${wAPI}`;
+      try {
+        const res = await fetch(url);
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const wapiData = await res.json();
+        console.log(wapiData);
+        setWeatherData(wapiData);
+        setseven_day_forcast(wapiData.list);
+      } catch (error) {
+        console.error("Failed to fetch weather data:", error);
+      }
+    }
+    let intervalId;
+    if (lat && lng) {
+      getWeatherInfo();
+      const intervalId = setInterval(() => {
+      console.log("runnig")
+      getWeatherInfo(); 
+      }, 5*60*1000);
+    }
+     return () => {
+    if (intervalId) clearInterval(intervalId); // cleanup
+  };
+  }, [lat, lng]);
+  useEffect(() => {
+    console.log("useeff weather");
+    console.log(weatherData);
+    console.log(seven_day_forcast);
+  }, [weatherData]);
+ 
   return (
     <>
       <div className="app">
-        <Navbar />
+        <Navbar coords={coords} setCoords={setCoords} />
         <main className="flex mx-5">
           <Sidebar />
-          <Main curloc={curloc} />
+          <Main
+            curloc={curloc}
+            lat={lat}
+            lng={lng}
+            setcurloc={setcurloc}
+            weatherData={weatherData}
+            seven_day_forcast={seven_day_forcast}
+          />
         </main>
       </div>
     </>
