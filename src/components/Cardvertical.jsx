@@ -26,7 +26,7 @@ const Cardvertical = (props) => {
   return `${hour}:${minute} ${ampm}`;
 }
   return (
-    <div className="flex flex-col min-w-[100px] max-h-[95%]  items-center justify-between rounded-3xl gap-2 p-2 roboto text-white lightgray">
+    <div className="flex flex-col min-w-[100px] max-h-[95%]  items-center justify-between rounded-3xl gap-2 p-2 roboto text-white  glassmorphism_inside">
         <p className="title">{getDayLabel(item.dt_txt)}</p>
         <p>{convertTo12HourFormat(item.dt_txt.split(' ')[1])}</p>
         <div className="overflow-hidden flex items-center justify-center rounded-xl">

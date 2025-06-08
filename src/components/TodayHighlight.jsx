@@ -37,14 +37,14 @@ const TodayHighlight = (props) => {
   }
 
   return (
-    <div className="gray w-[100%] h-[60%] rounded-2xl flex flex-col">
+    <div className="glassmorphism w-[100%] h-[60%] rounded-2xl flex flex-col">
       <div className="title roboto font-bold text-white text-2xl m-5">
         <h1>Today's Highlight</h1>
       </div>
-      <div className="flex flex-col sm:flex sm:flex-row gap-3 sm:gap-3 mx-1 sm:mx-5 items-center sm:w-[95%] sm:h-[70%]  overflow-y-scroll sm:overflow-visible rounded-2xl px-2">
+      <div className="flex flex-col sm:flex sm:flex-row gap-3 sm:gap-3 mx-1 sm:mx-5 items-center sm:w-[95%] sm:h-[70%]  overflow-y-scroll sm:overflow-visible rounded-2xl px-2 py-3">
         <div className="statuscard w-full sm:w-[50%] sm:h-[100%] flex flex-col text-white gap-2  ">
           <div className="flex justify-center items-center max-h-[50%]  gap-2  ">
-            <div className="wind lightgray w-[50%] h-full sm:w-40 sm:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
+            <div className="wind glassmorphism_inside  w-[50%] h-full sm:w-40 sm:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
               <p className="1st entry">Wind Staus</p>
               <p className="2nd entry">
                 <span className="font-bold">
@@ -56,7 +56,7 @@ const TodayHighlight = (props) => {
               </p>
               <p className="3rd entry">{getCurrentTime12hr()}</p>
             </div>
-            <div className="humidity lightgray  w-[50%] h-full sm:w-40 sm:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
+            <div className="humidity  glassmorphism_inside w-[50%] h-full sm:w-40 sm:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
               <p className="1st entry">Humidity</p>
               <p className="2nd entry">
                 <span className="font-bold">
@@ -70,14 +70,14 @@ const TodayHighlight = (props) => {
             </div>
           </div>
           <div className=" flex items-center gap-2 h-[50%] justify-center">
-            <div className="uvidnex lightgray w-[50%] h-full sm:w-40 sm:h-30  rounded-2xl flex flex-col items-end justify-between p-4 roboto ">
+            <div className="uvidnex glassmorphism_inside w-[50%] h-full sm:w-40 sm:h-30  rounded-2xl flex flex-col items-end justify-between p-4 roboto ">
               <p className="1st entry">Wind Status</p>
               <p className="2nd entry">
                 <span className="font-bold">7.90</span> km/h
               </p>
               <p className="3rd entry">9:00 AM</p>
             </div>
-            <div className="visibility lightgray  w-[50%] h-full sm:w-40 sm:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
+            <div className="visibility  glassmorphism_inside w-[50%] h-full sm:w-40 sm:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
               <p className="1st entry">Visibility</p>
               <p className="2nd entry">
                 <span className="font-bold">{Visibility()}</span>
@@ -87,7 +87,7 @@ const TodayHighlight = (props) => {
           </div>
         </div>
         <div className="w-full h-full flex flex-col gap-2  ">
-          <div className="tab h-[50%] lightgray  w-full rounded-2xl flex flex-wrap justify-between items-center p-4 roboto text-white">
+          <div className="tab h-[50%]  glassmorphism_inside w-full rounded-2xl flex flex-wrap justify-between items-center p-4 roboto text-white">
             <div className="imgcontainer w-[100px] h-[80%] overflow-hidden flex items-center justify-center">
               <img
                 className="max-w-full max-h-full object-contain rounded-xl"
@@ -101,7 +101,7 @@ const TodayHighlight = (props) => {
               <p className="suntime font-bold text-2xl">{sunrise}</p>
             </div>
           </div>
-          <div className="tab h-[50%] lightgray w-full rounded-2xl flex flex-wrap justify-between items-center p-4 roboto text-white">
+          <div className="tab h-[50%]  glassmorphism_inside w-full rounded-2xl flex flex-wrap justify-between items-center p-4 roboto text-white">
             <div className="imgcontainer w-[100px] h-[80%] overflow-hidden flex items-center justify-center ">
               <img
                 className="max-w-full max-h-full object-contain rounded-xl"

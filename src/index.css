@@ -1,4 +1,9 @@
 @import "tailwindcss";
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 body{
   background-color: rgb(16, 16, 16);
 }
@@ -17,7 +22,8 @@ body{
 }
 
 ::-webkit-scrollbar-track {
-  background: #2b2b2b; /* Dark track */
+  background: #2b2b2b47; /* Dark track */
+  backdrop-filter: blur(10px);
   border-radius: 10px;
 }
 
@@ -62,3 +68,69 @@ body{
 
   }
 } */
+.glassmorphism {
+  border: solid 2px rgba(247, 245, 245, 0.336);
+  background-color: rgba(255, 255, 255, 0.267);
+  backdrop-filter: blur(10px);
+}
+.glassmorphism_inside{
+  border: solid 2px rgba(247, 245, 245, 0.226);
+  background-color: rgba(117, 117, 117, 0.316);
+  backdrop-filter: blur(10px);
+  color: rgb(255, 254, 254);
+}
+.bg-Clear{
+  background-image: url('/public/clearbackground.jpg');
+  background-size: cover;
+  background-position: contain;
+}
+.bg-Clouds{
+  background-image: url('/public/cloudbackground.gif');
+  background-size: cover;
+  background-position: contain;
+}
+.bg-Dust{
+  background-image: url('/public/Dust.jpg');
+  background-size: cover;
+  background-position: contain;
+}
+.bg-Rain{
+  background-image: url('/public/rainybackground.gif');
+  background-size: cover;
+  background-position: contain;
+}
+.bg-Thunderstorm{
+    background-image: url('/public/thunderstormbackground.gif');
+    background-size: cover;
+  background-position: contain;
+}
+.bg-Haze{
+    background-image: url('/public/Haze.jpg');
+    background-size: cover;
+    background-position: contain;
+}
+.bg-Mist{
+    background-image: url('/public/mist.jpg');
+    background-size: cover;
+    background-position: contain;
+}
+.bg-Drizzle{
+    background-image: url('/public/drizzle.jpg');
+    background-size: cover;
+    background-position: contain;
+}
+.bg-Sand{
+   background-image: url('/public/Sand.jpg');
+    background-size: cover;
+    background-position: contain;
+}
+.bg-Snow{
+   background-image: url('/public/Snow.jpg');
+    background-size: cover;
+    background-position: contain;
+}
+.bg-Smoke{
+   background-image: url('/public/Smoke.png');
+    background-size: cover;
+    background-position: contain;
+}

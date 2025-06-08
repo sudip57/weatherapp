@@ -39,8 +39,8 @@ const Navbar = (props) => {
   };
   console.log(storedValue);
   return (
-    <div className="m-5  flex sm:justify-end justify-center">
-      <div className="flex rounded-full gray sm:w-[300px] justify-center items-center px-5 text-gray-400">
+    <div className="p-5 flex sm:justify-end justify-center">
+      <div className="flex rounded-full  glassmorphism_inside sm:w-[300px] justify-center items-center px-5 text-white">
         <i className="fa-solid fa-magnifying-glass text-2xl"></i>
         <input
           value={inputValue}
@@ -51,9 +51,9 @@ const Navbar = (props) => {
           placeholder="Search your location"
         />
       </div>
-      <div className="mode gray rounded-full w-20 flex items-center justify-around px-2  mx-2">
-        <i className="fa-regular fa-sun text-2xl text-gray-500"></i>
-        <i className="fa-solid fa-moon text-2xl"></i>
+      <div className="mode glassmorphism_inside rounded-full w-20 flex items-center justify-around px-2  mx-2">
+        <i className="fa-regular fa-sun text-2xl "></i>
+        <i className="fa-solid fa-moon text-2xl text-black"></i>
         <div className="circle"></div>
       </div>
     </div>

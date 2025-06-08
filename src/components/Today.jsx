@@ -90,9 +90,9 @@ const Today = (props) => {
   }, [lat, lng]);
 
   return (
-    <div className="h-full  -amber-100">
+    <div className="h-full glassmorphism  rounded-2xl">
       <div className="currentloc flex justify-between m-5 roboto text-white">
-        <div className="min-h-[30px] rounded-xl lightgray flex justify-center items-center  text-[15px] sm:text-xl">
+        <div className="min-h-[30px] rounded-xl flex justify-center items-center  text-[15px] sm:text-xl">
           <p className="p-2 text-center">{curloc}</p>
         </div>
       </div>
