@@ -9,12 +9,25 @@ function App() {
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
+  const [curweatherData, setcurweatherData] = useState(null);
   const [coords, setCoords] = useState({ lat, lng });
   const [seven_day_forcast, setseven_day_forcast] = useState([]);
+  const [Aqi, setAqi] = useState({ value: "-", label: "", message: "" })
   useEffect(() => {
     setLat(coords.lat);
     setLng(coords.lng);
   }, [coords]);
+  function interpretAQI(aqi) {
+  const aqiLevels = {
+    1: { value: 50, label: "Good", message: "Air quality is considered satisfactory." },
+    2: { value: 100, label: "Fair", message: "Air quality is acceptable." },
+    3: { value: 150, label: "Moderate", message: "Sensitive individuals may experience minor issues." },
+    4: { value: 200, label: "Poor", message: "Everyone may begin to experience health effects." },
+    5: { value: 300, label: "Very Poor", message: "Health warnings of emergency conditions." }
+  };
+
+  return aqiLevels[aqi] || { value: "-", label: "Unknown", message: "Invalid AQI value." };
+}
   function getCurrentLoc() {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
@@ -35,15 +48,23 @@ function App() {
     let intervalId;
     async function getWeatherInfo() {
       const wAPI = import.meta.env.VITE_WEATHER_API;
+      const aqiurl = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lng}&appid=${wAPI}`
+      const url2 = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${wAPI}`
       const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&units=metric&appid=${wAPI}`;
       try {
         const res = await fetch(url);
-        if (!res.ok) {
+        const res2 = await fetch(url2);
+        const res3 =await fetch(aqiurl);
+        if (!res.ok||!res2.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
         const wapiData = await res.json();
-        console.log(wapiData);
+        const curwapiData = await res2.json();
+        const curAqi  = await res3.json();
+        setAqi(interpretAQI(curAqi.list[0].main.aqi));
+        console.log("aqi");
         setWeatherData(wapiData);
+        setcurweatherData(curwapiData);
         setseven_day_forcast(wapiData.list);
       } catch (error) {
         console.error("Failed to fetch weather data:", error);
@@ -63,8 +84,12 @@ function App() {
   useEffect(() => {
     console.log("useeff weather");
     console.log(weatherData);
-    console.log(seven_day_forcast);
-  }, [weatherData]);
+    console.log('getcurweatherdata')
+    if(curweatherData){
+    console.log(curweatherData.timezone);
+    }
+    console.log(Aqi)
+  }, [weatherData,curweatherData,Aqi]);
 
   return (
     <>
@@ -79,7 +104,9 @@ function App() {
               lng={lng}
               setcurloc={setcurloc}
               weatherData={weatherData}
+              curweatherData={curweatherData}
               seven_day_forcast={seven_day_forcast}
+              Aqi={Aqi}
             />
           </main>
         </div>

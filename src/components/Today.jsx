@@ -2,16 +2,16 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 const Today = (props) => {
-  const { curloc, lat, lng, setcurloc, weatherData } = props;
+  const { curloc, lat, lng, setcurloc, curweatherData} = props;
+  console.log("cur data inside today");
   //currentDate
   const [desc, setdesc] = useState("Loading...");
-
+  const [curtime, setcurtime] = useState();
   useEffect(() => {
-    if (weatherData) {
-      setdesc(weatherData.list[0].weather[0].main);
+    if (curweatherData) {
+      setdesc(curweatherData.weather[0].main);
     }
-  }, [weatherData]);
-
+  },[curweatherData]);
   function getCurrentDayAndDate() {
     const now = new Date();
 
@@ -88,11 +88,12 @@ const Today = (props) => {
       updateCurloc();
     }
   }, [lat, lng]);
-
+  
   return (
     <div className="h-full glassmorphism  rounded-2xl">
       <div className="currentloc flex justify-between m-5 roboto text-white">
         <div className="min-h-[30px] rounded-xl flex justify-center items-center  text-[15px] sm:text-xl">
+          <i className="fa-solid fa-location-dot"></i>
           <p className="p-2 text-center">{curloc}</p>
         </div>
       </div>
@@ -102,28 +103,27 @@ const Today = (props) => {
           <p>{date}</p>
         </div>
         <div className="w-[50%] overflow-hidden flex items-center justify-center">
-
-          <img className="max-w-full max-h-full object-contain" src={`${desc}.png`} alt="" />
+          <img className="max-w-full max-h-full object-contain" src={`${desc}.png`} alt=""/>
         </div>
         <div className="details sm:text-2xl flex flex-col justify-around items-end text-white w-1/3  h-[70%] sm:h-full py-2">
           <p>
-            {weatherData
-              ? weatherData.list[0].main.temp
+            {curweatherData
+              ? curweatherData.main.temp
               : console.log("loading")}
             °C
           </p>
           <div className="flex flex-col items-end  ">
             <div className="text-right">
               <p className="sm:text-[20px]">
-              {weatherData
-                ? weatherData.list[0].weather[0].description
+              {curweatherData
+                ? curweatherData.weather[0].description
                 : console.log("loading")}
             </p>
             </div>
             <p className="sm:text-[13px] text-[10px] text-right ">
               Feels like{" "}
-              {weatherData
-                ? weatherData.list[0].main.feels_like
+              {curweatherData
+                ? curweatherData.main.feels_like
                 : console.log("loading")}
               °C
             </p>
