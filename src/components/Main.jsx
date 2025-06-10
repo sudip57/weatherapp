@@ -41,7 +41,7 @@ const Main = (props) => {
     }
   }, [curweatherData]);
   return (
-    <div className="flex flex-col  sm:flex sm:flex-row  sm:w-[calc(100%-100px)] items-center sm:justify-center">
+    <div className="flex flex-col sm:flex sm:flex-row  sm:w-[calc(100%-100px)] items-center sm:justify-center">
       <div className="left h-[80%] sm:w-[40%] sm:h-[100%] curretnloc flex flex-col gap-2 ">
         <div className="w-full sm:h-1/2 rounded-2xl">
           <Today curloc={curloc} lat={lat} lng={lng} setcurloc={setcurloc} curweatherData={curweatherData} curTime={curTime}  sunset={sunset} sunrise={sunrise} convertTimezone={convertTimezone} unixToTime={unixToTime}  />

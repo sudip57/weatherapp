@@ -116,13 +116,15 @@ const Today = (props) => {
   return (
     <div className="h-full glassmorphism  rounded-2xl">
       <div className="currentloc flex justify-between m-5 roboto text-white">
-        <div className="min-h-[30px] rounded-xl flex justify-center items-center  text-[15px] sm:text-xl">
-          <i className="fa-solid fa-location-dot"></i>
-          <p className="p-2 text-center">{curloc}</p>
+        <div className="glassmorphism_inside min-h-[30px] rounded-xl flex justify-center text-[15px] sm:text-xl">
+          <div className="flex items-center my-2 mx-2 gap-2 ">
+            <i className="text-teal-500 fa-solid fa-location-dot"></i>
+            <p className="text-left ">{curloc}</p>
+          </div>
         </div>
       </div>
-      <div className="flex m-5 h-[70%] items-center sm:flex ">
-        <div className="Day sm:text-2xl roboto text-white w-1/3">
+      <div className="flex m-5 h-[70%] sm:flex ">
+        <div className="Day sm:text-2xl roboto text-amber-300 w-1/3">
           <p>{day}</p>
           <p>{date}</p>
         </div>
@@ -133,20 +135,20 @@ const Today = (props) => {
             alt=""
           />
         </div>
-        <div className="details sm:text-2xl flex flex-col justify-around items-end text-white w-1/3  h-[70%] sm:h-full py-2">
-          <p>
+        <div className="details sm:text-2xl flex flex-col justify-around items-end w-1/3  h-[70%] sm:h-full py-2">
+          <p className="text-orange-300 font-bold ">
             {curweatherData ? curweatherData.main.temp : console.log("loading")}
             °C
           </p>
-          <div className="flex flex-col items-end  ">
+          <div className="flex flex-col items-end py-5">
             <div className="text-right">
-              <p className="sm:text-[20px]">
+              <p className="sm:text-[20px] text-cyan-200">
                 {curweatherData
                   ? curweatherData.weather[0].description
                   : console.log("loading")}
               </p>
             </div>
-            <p className="sm:text-[13px] text-[10px] text-right ">
+            <p className="sm:text-[14px] text-[10px] text-right text-rose-500 ">
               Feels like{" "}
               {curweatherData
                 ? curweatherData.main.feels_like

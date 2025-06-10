@@ -40,8 +40,8 @@ const Navbar = (props) => {
   console.log(storedValue);
   return (
     <div className="p-5 flex sm:justify-end justify-center">
-      <div className="flex rounded-full  glassmorphism_inside sm:w-[300px] justify-center items-center px-5 text-white border border-amber-50">
-        <i className="fa-solid fa-magnifying-glass text-2xl"></i>
+      <div className="flex rounded-full  glassmorphism_inside w-full sm:w-[300px] justify-center items-center px-5 text-white border border-amber-50">
+        <i className="fa-solid fa-magnifying-glass text-2xl text-emerald-600"></i>
         <input
           value={inputValue}
           onChange={handleChange}

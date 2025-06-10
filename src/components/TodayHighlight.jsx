@@ -2,8 +2,8 @@ import React from "react";
 import Card from "./Card";
 import { useState } from "react";
 const TodayHighlight = (props) => {
-  const {curweatherData,Aqi,curTime} = props;
-  console.log('inside')
+  const { curweatherData, Aqi, curTime } = props;
+  console.log("inside");
   function convertUnixToTime(unixTime) {
     const date = new Date(unixTime * 1000);
     let hours = date.getHours();
@@ -14,7 +14,7 @@ const TodayHighlight = (props) => {
   }
   const sunrise = convertUnixToTime(curweatherData?.sys?.sunrise ?? null);
   const sunset = convertUnixToTime(curweatherData?.sys?.sunset ?? null);
- 
+
   function Visibility() {
     const meters = curweatherData
       ? curweatherData.visibility
@@ -25,10 +25,21 @@ const TodayHighlight = (props) => {
     return (meters / 1000).toFixed(2) + " km";
   }
   function convertMpsToKmph(mps) {
-  return (mps * 3.6).toFixed(2); 
-}
-  
-
+    return (mps * 3.6).toFixed(2);
+  }
+  function aqilevel(aqi){
+    if(aqi.value<=50){
+      return 'bg-green-500'
+    }else if(aqi.value<=150&&aqi.value<=100){
+      return 'bg-lime-500'
+    }else if(aqi.value<=150&&aqi.value>100){
+      return 'bg-amber-500'
+    }else if(aqi.value<=200&&aqi.value>150){
+      return 'bg-orange-500'
+    }else{
+      return 'bg-red-500'
+    }
+  }
   return (
     <div className="glassmorphism w-[100%] h-[70%] rounded-2xl flex flex-col">
       <div className="title roboto font-bold text-white text-2xl m-5">
@@ -38,9 +49,12 @@ const TodayHighlight = (props) => {
         <div className="statuscard w-full sm:w-[50%] sm:h-[100%] flex flex-col text-white gap-4">
           <div className="flex justify-center items-center max-h-[50%]  gap-2 ">
             <div className="wind glassmorphism_inside  w-[50%] h-full sm:w-40 sm:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
-              <p className="1st entry">Wind Staus</p>
+              <div className="flex items-center justify-between w-[100%] font-bold">
+                <i class="fa-solid fa-wind"></i>
+                <p className="1st entry">Wind Staus</p>
+              </div>
               <p className="2nd entry">
-                <span className="font-bold">
+                <span className="font-bold text-yellow-500">
                   {curweatherData
                     ? convertMpsToKmph(curweatherData.wind.speed)
                     : console.log("loading")}
@@ -50,9 +64,13 @@ const TodayHighlight = (props) => {
               <p className="3rd entry">{curTime}</p>
             </div>
             <div className="humidity  glassmorphism_inside w-[50%] h-full sm:w-40 sm:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
-              <p className="1st entry">Humidity</p>
+              <div className="flex items-center justify-between w-[100%] text-blue-300 font-bold">
+                <i class="fa-solid fa-droplet"></i>
+                <p className="1st entry">Humidity</p>
+              </div>
+
               <p className="2nd entry">
-                <span className="font-bold">
+                <span className="font-bold text-emerald-300">
                   {curweatherData
                     ? curweatherData.main.humidity
                     : console.log("loading")}
@@ -64,16 +82,22 @@ const TodayHighlight = (props) => {
           </div>
           <div className=" flex items-center gap-2 h-[50%] justify-center">
             <div className="uvidnex glassmorphism_inside w-[50%] h-full sm:w-40 sm:h-30  rounded-2xl flex flex-col items-end justify-between p-4 roboto ">
-              <p className="1st entry">AQI</p>
-              <p className="2nd entry">
-                <span className="font-bold">{Aqi.value}</span>
+              <p className="1st entry text-amber-400 font-bold">AQI</p>
+              <div className="flex justify-between w-full items-center">
+                <div className={`circle h-5 w-5 ${aqilevel(Aqi)} rounded-full`}></div>
+                <p className="2nd entry">
+                <span className="font-bold text-lime-200">{Aqi.value}</span>
               </p>
+              </div>
               <p className="3rd entry">{Aqi.label}</p>
             </div>
             <div className="visibility  glassmorphism_inside w-[50%] h-full sm:w-40 sm:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
+              <div className="flex items-center justify-between w-[100%] text-red-300 font-bold">
+              <i class="fa-solid fa-eye-slash"></i>
               <p className="1st entry">Visibility</p>
+              </div>
               <p className="2nd entry">
-                <span className="font-bold">{Visibility()}</span>
+                <span className="font-bold text-teal-300">{Visibility()}</span>
               </p>
               <p className="3rd entry">{curTime}</p>
             </div>
@@ -90,7 +114,7 @@ const TodayHighlight = (props) => {
             </div>
 
             <div className="suninfo">
-              <p className="">Sunrise</p>
+              <p className="text-amber-200 font-bold">Sunrise</p>
               <p className="suntime font-bold text-2xl">{sunrise}</p>
             </div>
           </div>
@@ -104,7 +128,7 @@ const TodayHighlight = (props) => {
             </div>
 
             <div className="suninfo">
-              <p className="">Sunset</p>
+              <p className="text-rose-400 font-bold">Sunset</p>
               <p className="suntime font-bold text-2xl">{sunset}</p>
             </div>
           </div>

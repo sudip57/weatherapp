@@ -199,7 +199,7 @@ function App() {
             setCoords={setCoords}
             className="z-1 absolute"
           />
-          <main className="flex flex-col mx-5 sm:flex sm:flex-row h-[90vh] sm:h-[86%]  overflow-y-scroll sm:overflow-y-hidden rounded-2xl">
+          <main className="flex flex-col mx-5  sm:flex sm:flex-row h-[87vh] sm:h-[86%]  overflow-y-scroll sm:overflow-y-hidden rounded-2xl">
             <Sidebar />
             <Main
               curloc={curloc}

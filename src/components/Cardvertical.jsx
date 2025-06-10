@@ -26,13 +26,13 @@ const Cardvertical = (props) => {
   return `${hour}:${minute} ${ampm}`;
 }
   return (
-    <div className="flex flex-col min-w-[100px] max-h-[95%]  items-center justify-between rounded-3xl gap-2 p-2 roboto text-white  glassmorphism_inside">
-        <p className="title">{getDayLabel(item.dt_txt)}</p>
+    <div className="flex flex-col min-w-[120px]  sm:min-w-[100px] max-h-[95%]  items-center justify-between rounded-3xl gap-2 p-2 roboto text-white  glassmorphism_inside">
+        <p className="title text-amber-500 font-bold">{getDayLabel(item.dt_txt)}</p>
         <p>{convertTo12HourFormat(item.dt_txt.split(' ')[1])}</p>
         <div className="overflow-hidden flex items-center justify-center rounded-xl">
                <img className="object-contain max-w-full max-h-full object-contain" src={`${item.weather[0].main}.png`} alt="" />
         </div>
-        <div className="temp">{item.main.temp}°C</div>
+        <div className="temp text-red-400 font-bold">{item.main.temp}°C</div>
     </div>
   );
 };
