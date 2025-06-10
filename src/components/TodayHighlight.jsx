@@ -25,16 +25,16 @@ const TodayHighlight = (props) => {
     return (meters / 1000).toFixed(2) + " km";
   }
   function convertMpsToKmph(mps) {
-  return (mps * 3.6).toFixed(2); // returns a string like "36.00"
+  return (mps * 3.6).toFixed(2); 
 }
   
 
   return (
-    <div className="glassmorphism w-[100%] h-[60%] rounded-2xl flex flex-col">
+    <div className="glassmorphism w-[100%] h-[70%] rounded-2xl flex flex-col">
       <div className="title roboto font-bold text-white text-2xl m-5">
         <h1>Today's Highlight</h1>
       </div>
-      <div className="flex flex-col sm:flex sm:flex-row gap-3 sm:gap-3 mx-1 sm:mx-5 items-center sm:w-[95%] sm:h-[70%]  overflow-y-scroll sm:overflow-visible rounded-2xl px-2 py-3">
+      <div className="flex flex-col sm:flex sm:flex-row gap-3 sm:gap-3 mx-1 sm:mx-5 items-center sm:w-[95%] sm:h-[70%]  sm:overflow-visible rounded-2xl px-2 py-3">
         <div className="statuscard w-full sm:w-[50%] sm:h-[100%] flex flex-col text-white gap-4">
           <div className="flex justify-center items-center max-h-[50%]  gap-2 ">
             <div className="wind glassmorphism_inside  w-[50%] h-full sm:w-40 sm:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">

@@ -13,6 +13,19 @@ function App() {
   const [coords, setCoords] = useState({ lat, lng });
   const [seven_day_forcast, setseven_day_forcast] = useState([]);
   const [Aqi, setAqi] = useState({ value: "-", label: "", message: "" });
+  const weatherBackgrounds = {
+  Clear: 'clearbackground.jpg',
+  Clouds: 'cloudbackground.gif',
+  Dust: 'Dust.jpg',
+  Rain: 'rainybackground.gif',
+  Thunderstorm: 'thunderstormbackground.gif',
+  Haze: 'Haze.jpg',
+  Mist: 'mist.jpg',
+  Drizzle: 'drizzle.jpg',
+  Sand: 'Sand.jpg',
+  Snow: 'Snow.jpg',
+  Smoke: 'Smoke.png'
+};
   function convertTimezone(offsetInSeconds) {
     const nowUTC = new Date(
       Date.now() + new Date().getTimezoneOffset() * 60000
@@ -21,7 +34,7 @@ function App() {
 
     const hours = String(localTime.getHours()).padStart(2, "0");
     const minutes = String(localTime.getMinutes()).padStart(2, "0");
-
+    console.log(hours)
     return `${hours}:${minutes}`;
   }
   function unixToTime(unixTimestamp) {
@@ -30,7 +43,7 @@ function App() {
 
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
-
+    console.log(hours)
     return `${hours}:${minutes}`;
   }
   useEffect(() => {
@@ -132,21 +145,54 @@ function App() {
     }
     console.log(Aqi);
   }, [weatherData, curweatherData, Aqi]);
+  function Day_Night(){
+    if(curweatherData)
+    if(convertTimezone(curweatherData.timezone)<unixToTime(curweatherData.sys.sunrise)||convertTimezone(curweatherData.timezone)>unixToTime(curweatherData.sys.sunset)){
+      return false;
+    }else{
+      return true;
+    }
+  }
+  function isDaytime(timezone, sunrise, sunset) {
+  const currentUTC = Math.floor(Date.now() / 1000); // current time in UTC (seconds)
+  const localTime = currentUTC + timezone;          // convert UTC to local time
 
+  return localTime >= sunrise && localTime < sunset;
+}
   return (
     <>
       <div
-        className={` border border-amber-950 app min-h-screen overflow-y-scroll w-full flex flex-col bg-cover bg-${
-          curweatherData ? curweatherData.weather[0].main : "bg-amber-600"
-        } `}
-      >
-        <div>
+        className={`app min-h-screen overflow-y-scroll w-full flex flex-col`}
+      > 
+        { 
+          curweatherData?.sys && curweatherData?.weather?.[0] ? (
+    isDaytime(
+      curweatherData.timezone,
+      curweatherData.sys.sunrise,
+      curweatherData.sys.sunset
+    ) ? (
+      <div className="image-container">
+      <img src={weatherBackgrounds[curweatherData.weather[0].main] || "Clearbackground.jpg"} alt={curweatherData.weather[0].main} 
+      /> 
+      </div>
+    ) : (
+      <div className="image-container">
+        <img className="night" src="Night.jpg" alt="Night" />
+      </div>
+    )
+  ) : (
+    <p>Loading weather info...</p> // or just return `null`
+  )
+        }
+     
+       
+        <div className="absolute w-[100%] h-full">
           <Navbar
             coords={coords}
             setCoords={setCoords}
             className="z-1 absolute"
           />
-          <main className="flex flex-col mx-5 sm:flex sm:flex-row h-[85vh]  my-2">
+          <main className="flex flex-col mx-5 sm:flex sm:flex-row h-[90vh] sm:h-[86%]  my-2 overflow-y-scroll sm:overflow-y-hidden">
             <Sidebar />
             <Main
               curloc={curloc}

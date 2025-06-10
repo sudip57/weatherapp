@@ -135,3 +135,15 @@ body{
   background-size: cover;
   background-position: contain;
 }
+.image-container  {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* fills div without overflow or stretch */
+  object-position: center;
+}
+.image-container img{
+  width: 100%;       /* or any fixed width */
+  height: 100vh;     /* or dynamic height */
+  overflow: hidden;
+  position: relative;
+} 
