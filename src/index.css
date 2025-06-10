@@ -147,3 +147,22 @@ body{
   overflow: hidden;
   position: relative;
 } 
+.loadingState{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}
+.loadingState i{
+  opacity: 0.2;
+  font-size: 3rem;
+}
