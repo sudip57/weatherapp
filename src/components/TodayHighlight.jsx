@@ -82,13 +82,13 @@ const TodayHighlight = (props) => {
           </div>
           <div className=" flex items-center gap-2 h-[50%] justify-center">
             <div className="uvidnex glassmorphism_inside w-[50%] h-full sm:w-40 sm:h-30  rounded-2xl flex flex-col items-end justify-between p-4 roboto ">
-              <p className="1st entry text-amber-400 font-bold">AQI</p>
               <div className="flex justify-between w-full items-center">
-                <div className={`circle h-5 w-5 ${aqilevel(Aqi)} rounded-full`}></div>
+              <div className={`circle h-5 w-5 ${aqilevel(Aqi)} rounded-full`}></div>
+              <p className="1st entry text-amber-400 font-bold">AQI</p>
+               </div>
                 <p className="2nd entry">
                 <span className="font-bold text-lime-200">{Aqi.value}</span>
               </p>
-              </div>
               <p className="3rd entry">{Aqi.label}</p>
             </div>
             <div className="visibility  glassmorphism_inside w-[50%] h-full sm:w-40 sm:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
