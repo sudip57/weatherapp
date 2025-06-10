@@ -158,18 +158,19 @@ function App() {
         return true;
       }
   }
-  function isDaytime(timezone, sunrise, sunset) {
-    const currentUTC = Math.floor(Date.now() / 1000); // current time in UTC (seconds)
-    const localTime = currentUTC + timezone; // convert UTC to local time
+ function isDaytime(timezone, sunrise, sunset) {
+  const currentUTC = Math.floor(Date.now() / 1000); // current time in UTC (seconds)
 
-    return localTime >= sunrise && localTime < sunset;
-  }
+  // DO NOT add timezone here. Sunrise and sunset are already in UTC.
+  return currentUTC >= sunrise && currentUTC < sunset;
+}
   return (
     <>
-      <div
+      {curweatherData ? (
+          <div
         className={`app min-h-screen overflow-y-scroll w-full flex flex-col`}
       >
-        {curweatherData?.sys && curweatherData?.weather?.[0] ? (
+        {curweatherData?.sys && curweatherData?.weather[0]?.main ? (
           isDaytime(
             curweatherData.timezone,
             curweatherData.sys.sunrise,
@@ -186,41 +187,41 @@ function App() {
             </div>
           ) : (
             <div className="image-container">
-              <img className="night" src="Night.jpg" alt="Night" />
+              <img src="Night.jpg" alt="Night" />
             </div>
           )
-        ) : null // or just return `null`
-        }
-
-        <div className="absolute w-[100%] h-[100vh]">
+        ) : (
+          <p>Loading weather info...</p>
+        )}
+        <div className="absolute w-[100%] h-full">
           <Navbar
             coords={coords}
             setCoords={setCoords}
             className="z-1 absolute"
           />
-          {curweatherData ? (
-            <main className="flex flex-col mx-5 sm:flex sm:flex-row h-[90vh] sm:h-[86%]  my-2 overflow-y-scroll sm:overflow-y-hidden rounded-2xl">
-              <Sidebar />
-              <Main
-                curloc={curloc}
-                lat={lat}
-                lng={lng}
-                setcurloc={setcurloc}
-                weatherData={weatherData}
-                curweatherData={curweatherData}
-                seven_day_forcast={seven_day_forcast}
-                Aqi={Aqi}
-                convertTimezone={convertTimezone}
-                unixToTime={unixToTime}
-              />
-            </main>
-          ) : (
-            <div className="loadingState flex h-full">
-              <i className="fa-solid fa-gear text-white"></i>
-            </div>
-          )}
+          <main className="flex flex-col mx-5 sm:flex sm:flex-row h-[90vh] sm:h-[86%]  overflow-y-scroll sm:overflow-y-hidden rounded-2xl">
+            <Sidebar />
+            <Main
+              curloc={curloc}
+              lat={lat}
+              lng={lng}
+              setcurloc={setcurloc}
+              weatherData={weatherData}
+              curweatherData={curweatherData}
+              seven_day_forcast={seven_day_forcast}
+              Aqi={Aqi}
+              convertTimezone={convertTimezone}
+              unixToTime={unixToTime}
+            />
+          </main>
         </div>
       </div>
+      ) : (
+        <div className="loadingState h-full flex justify-center items-center">
+          <i className="fa-solid fa-gear text-white"></i>
+        </div>
+      )}
+    
     </>
   );
 }
