@@ -86,8 +86,9 @@ body{
 }
 .bg-Clouds {
   background-image: url('/cloudbackground.gif');
+  background-repeat: no-repeat;
   background-size: cover;
-  background-position: contain;
+  background-position: center;
 }
 .bg-Dust {
   background-image: url('/Dust.jpg');

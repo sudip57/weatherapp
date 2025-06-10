@@ -27,20 +27,24 @@ const Main = (props) => {
       hour12: true
     });
   }
-  const { seven_day_forcast,curloc ,lat,lng,setcurloc,weatherData, curweatherData,Aqi} = props;
+  const { seven_day_forcast,curloc ,lat,lng,setcurloc,weatherData, curweatherData,Aqi,convertTimezone,unixToTime} = props;
   console.log('cur data inside main');
   const [curTime, setcurTime] = useState()
+  const [sunset, setsunset] = useState()
+  const [sunrise, setsunrise] = useState()
   useEffect(() => {
-  if (curweatherData && curweatherData.timezone) {
+  if (curweatherData && curweatherData.timezone&&curweatherData.sys.sunset&&curweatherData.sys.sunrise) {
     const time = getLocalTime(curweatherData.timezone);
     setcurTime(time);
+    setsunset(curweatherData.sys.sunset);
+    setsunrise(curweatherData.sys.sunrise);
     }
   }, [curweatherData]);
   return (
     <div className="flex flex-col  sm:flex sm:flex-row  sm:w-[calc(100%-100px)] items-center sm:justify-center">
       <div className="left h-[80%] sm:w-[40%] sm:h-[100%] curretnloc flex flex-col gap-2 ">
         <div className="w-full sm:h-1/2 rounded-2xl">
-          <Today curloc={curloc} lat={lat} lng={lng} setcurloc={setcurloc} curweatherData={curweatherData} curTime={curTime}/>
+          <Today curloc={curloc} lat={lat} lng={lng} setcurloc={setcurloc} curweatherData={curweatherData} curTime={curTime}  sunset={sunset} sunrise={sunrise} convertTimezone={convertTimezone} unixToTime={unixToTime}  />
         </div>
         <div className="glassmorphism w-full h-1/2 rounded-2xl invisible sm:visible"></div>
       </div>

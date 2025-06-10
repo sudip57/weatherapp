@@ -2,16 +2,40 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 const Today = (props) => {
-  const { curloc, lat, lng, setcurloc, curweatherData} = props;
+  const {
+    curloc,
+    lat,
+    lng,
+    setcurloc,
+    curweatherData,
+    curTime,
+    sunrise,
+    sunset,
+    convertTimezone,
+    unixToTime
+  } = props;
   console.log("cur data inside today");
   //currentDate
+
+
   const [desc, setdesc] = useState("Loading...");
-  const [curtime, setcurtime] = useState();
+
   useEffect(() => {
-    if (curweatherData) {
-      setdesc(curweatherData.weather[0].main);
+    if (curweatherData && sunset && sunrise) {
+      if (sunset && sunrise) {
+        if (
+          convertTimezone(curweatherData.timezone) > unixToTime(sunset) ||
+          convertTimezone(curweatherData.timezone) < unixToTime(sunrise)
+        ) {
+          if (curweatherData.weather[0].main == "Clear") {
+            setdesc("Moon");
+          } else {
+            setdesc(curweatherData.weather[0].main);
+          }
+        }
+      }
     }
-  },[curweatherData]);
+  }, [curweatherData, sunset, sunrise]);
   function getCurrentDayAndDate() {
     const now = new Date();
 
@@ -88,7 +112,7 @@ const Today = (props) => {
       updateCurloc();
     }
   }, [lat, lng]);
-  
+
   return (
     <div className="h-full glassmorphism  rounded-2xl">
       <div className="currentloc flex justify-between m-5 roboto text-white">
@@ -103,22 +127,24 @@ const Today = (props) => {
           <p>{date}</p>
         </div>
         <div className="w-[50%] overflow-hidden flex items-center justify-center">
-          <img className="max-w-full max-h-full object-contain" src={`${desc}.png`} alt=""/>
+          <img
+            className="max-w-full max-h-full object-contain"
+            src={`${desc}.png`}
+            alt=""
+          />
         </div>
         <div className="details sm:text-2xl flex flex-col justify-around items-end text-white w-1/3  h-[70%] sm:h-full py-2">
           <p>
-            {curweatherData
-              ? curweatherData.main.temp
-              : console.log("loading")}
+            {curweatherData ? curweatherData.main.temp : console.log("loading")}
             °C
           </p>
           <div className="flex flex-col items-end  ">
             <div className="text-right">
               <p className="sm:text-[20px]">
-              {curweatherData
-                ? curweatherData.weather[0].description
-                : console.log("loading")}
-            </p>
+                {curweatherData
+                  ? curweatherData.weather[0].description
+                  : console.log("loading")}
+              </p>
             </div>
             <p className="sm:text-[13px] text-[10px] text-right ">
               Feels like{" "}
