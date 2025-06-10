@@ -1,20 +1,23 @@
-#🌤️ Weather App
-A modern weather web application built using React, HTML, CSS, and JavaScript, powered by the OpenWeatherMap API. It provides real-time weather updates and a 5-day forecast in 3-hour intervals.
+# 🌤️ Weather App
 
-🚀 Features
-🌍 Location-based Weather: Fetches weather data for any city or your current location.
+A sleek and responsive weather web application built using **React**, **HTML**, **CSS**, and **JavaScript**, leveraging the **OpenWeatherMap API**. This app provides real-time weather information and a 5-day forecast with 3-hour interval data.
 
-🌞 Current Weather Data: Displays temperature, sky conditions, humidity, wind speed, and more.
+![Weather App Screenshot](./wapp.jpg)
 
-📆 5-Day Forecast: Forecast in 3-hour intervals using OpenWeatherMap’s forecast data.
+---
 
-🌅 Sunrise & Sunset: Highlights important times of the day.
+## 🔧 Features
 
-🌫️ Visibility & AQI: Shows air quality index and visibility distance.
+- 🌍 **Search any location** and get current weather
+- 🌡️ **Real-time temperature, humidity, wind speed**, and more
+- 📆 **5-day weather forecast** in 3-hour intervals
+- 🌅 **Sunrise and Sunset times**
+- 🌫️ **Visibility and Air Quality Index (AQI)**
+- 🌙 **Clear UI for both day and night**
 
-🌙 Dynamic UI: Changes visuals based on weather conditions and time of day.
+---
 
-🛠️ Tech Stack
-Frontend: React.js, HTML, CSS, JavaScript
+## 🛠️ Tech Stack
 
-API: OpenWeatherMap
+- **Frontend**: `React`, `HTML`, `CSS`, `JavaScript`
+- **API**: [OpenWeatherMap](https://openweathermap.org/api)
