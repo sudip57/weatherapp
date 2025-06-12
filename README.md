@@ -2,7 +2,7 @@
 
 A sleek and responsive weather web application built using **React**, **HTML**, **CSS**, and **JavaScript**, leveraging the **OpenWeatherMap API**. This app provides real-time weather information and a 5-day forecast with 3-hour interval data.
 
-![Weather App Screenshot](./wapp.jpg)
+![Weather App Screenshot](./wapp.png)
 
 ---
 
