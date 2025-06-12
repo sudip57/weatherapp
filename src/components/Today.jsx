@@ -177,7 +177,7 @@ function isDay(currentTime, sunrise, sunset) {
                   : console.log("loading")}
               </p>
             </div>
-            <p className="lg:text-[14px] text-[10px] text-right text-rose-500 ">
+            <p className="lg:text-[14px] text-[10px] text-right text-rose-200 ">
               Feels like{" "}
               {curweatherData
                 ? curweatherData.main.feels_like
