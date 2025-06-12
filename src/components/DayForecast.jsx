@@ -5,7 +5,7 @@ import { useState } from "react";
 const DayForecast = (props) => {
   const { weatherData, seven_day_forcast } = props;
   return (
-    <div className="glassmorphism w-[100%] sm:h-[40%] rounded-2xl overflow-hidden">
+    <div className="glassmorphism w-[100%] lg:h-[40%] rounded-2xl overflow-hidden">
       <div className="title">
         <h1 className="roboto font-bold text-2xl text-white mx-4 my-2">
           5 Day Forecast (Every 3 Hours)

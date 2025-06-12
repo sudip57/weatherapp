@@ -250,12 +250,12 @@ function isDaytime(sunrise, sunset, timezone) {
           className={`app min-h-screen overflow-y-scroll w-full flex flex-col`}
         >
           {curweatherData?.sys && curweatherData?.weather[0]?.main ? (
-            isDaytime(localsunrise,localsunset,offsetMap[curweatherData.timeZone]) ? (
+           isDaytime(localsunrise,localsunset,offsetMap[curweatherData.timeZone]) ? (
               <div className="image-container">
                 <img
                   src={
-                    weatherBackgrounds[curweatherData.weather[0].main] ||
-                    "Clearbackground.jpg"
+                    // weatherBackgrounds[curweatherData.weather[0].main] ||
+                    "Clearbackground.png"
                   }
                   alt={curweatherData.weather[0].main}
                 />
@@ -274,7 +274,7 @@ function isDaytime(sunrise, sunset, timezone) {
               setCoords={setCoords}
               className="z-1 absolute"
             />
-            <main className="flex flex-col mx-5  sm:flex sm:flex-row h-[87vh] sm:h-[86%]  overflow-y-scroll sm:overflow-y-hidden rounded-2xl">
+            <main className="flex flex-col mx-5  lg:flex lg:flex-row h-[87vh] lg:h-[86%]  overflow-y-scroll lg:overflow-y-hidden rounded-2xl">
               <Sidebar />
               <Main
                 curloc={curloc}

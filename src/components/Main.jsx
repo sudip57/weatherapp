@@ -41,14 +41,14 @@ const Main = (props) => {
     }
   }, [curweatherData]);
   return (
-    <div className="flex flex-col sm:flex sm:flex-row  sm:w-[calc(100%-100px)] items-center sm:justify-center">
-      <div className="left h-[80%] sm:w-[40%] sm:h-[100%] curretnloc flex flex-col gap-2 ">
-        <div className="w-full sm:h-1/2 rounded-2xl">
+    <div className="flex flex-col lg:flex lg:flex-row  lg:w-[calc(100%-100px)] items-center lg:justify-center">
+      <div className="left h-[80%] lg:w-[40%] lg:h-[100%] curretnloc flex flex-col gap-2 ">
+        <div className="w-full lg:h-1/2 rounded-2xl">
           <Today curloc={curloc} lat={lat} lng={lng} setcurloc={setcurloc} curweatherData={curweatherData} curTime={curTime}  sunset={sunset} sunrise={sunrise} convertTimezone={convertTimezone} unixToTime={unixToTime}  />
         </div>
-        <div className="glassmorphism w-full h-1/2 rounded-2xl invisible sm:visible"></div>
+        <div className="glassmorphism w-full h-1/2 rounded-2xl invisible lg:visible"></div>
       </div>
-      <div className="right rounded-2xl flex flex-col mx-2 gap-2 w-[100%] sm:w-[60%] h-full">
+      <div className="right rounded-2xl flex flex-col mx-2 gap-2 w-[100%] lg:w-[60%] h-full">
         <TodayHighlight curweatherData={curweatherData} getLocalTime={getLocalTime} Aqi={Aqi} curTime={curTime} localsunrise={localsunrise} localsunset={localsunset}/>
         <DayForecast weatherData={weatherData}  seven_day_forcast={seven_day_forcast}/>
       </div>

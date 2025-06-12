@@ -45,10 +45,10 @@ const TodayHighlight = (props) => {
       <div className="title roboto font-bold text-white text-2xl m-5">
         <h1>Today's Highlight</h1>
       </div>
-      <div className="flex flex-col sm:flex sm:flex-row gap-3 sm:gap-3 mx-1 sm:mx-5 items-center sm:w-[95%] sm:h-[70%]  sm:overflow-visible rounded-2xl px-2 py-3">
-        <div className="statuscard w-full sm:w-[50%] sm:h-[100%] flex flex-col text-white gap-4">
+      <div className="flex flex-col lg:flex lg:flex-row gap-3 lg:gap-3 mx-1 lg:mx-5 items-center lg:w-[95%] lg:h-[70%]  lg:overflow-visible rounded-2xl px-2 py-3">
+        <div className="statuscard w-full lg:w-[50%] lg:h-[100%] flex flex-col text-white gap-4">
           <div className="flex justify-center items-center max-h-[50%]  gap-2 ">
-            <div className="wind glassmorphism_inside  w-[50%] h-full sm:w-40 sm:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
+            <div className="wind glassmorphism_inside  w-[50%] h-full lg:w-40 lg:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
               <div className="flex items-center justify-between w-[100%] font-bold">
                 <i class="fa-solid fa-wind"></i>
                 <p className="1st entry">Wind Staus</p>
@@ -63,7 +63,7 @@ const TodayHighlight = (props) => {
               </p>
               <p className="3rd entry">{curTime}</p>
             </div>
-            <div className="humidity  glassmorphism_inside w-[50%] h-full sm:w-40 sm:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
+            <div className="humidity  glassmorphism_inside w-[50%] h-full lg:w-40 lg:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
               <div className="flex items-center justify-between w-[100%] text-blue-300 font-bold">
                 <i class="fa-solid fa-droplet"></i>
                 <p className="1st entry">Humidity</p>
@@ -81,7 +81,7 @@ const TodayHighlight = (props) => {
             </div>
           </div>
           <div className=" flex items-center gap-2 h-[50%] justify-center">
-            <div className="uvidnex glassmorphism_inside w-[50%] h-full sm:w-40 sm:h-30  rounded-2xl flex flex-col items-end justify-between p-4 roboto ">
+            <div className="uvidnex glassmorphism_inside w-[50%] h-full lg:w-40 lg:h-30  rounded-2xl flex flex-col items-end justify-between p-4 roboto ">
               <div className="flex justify-between w-full items-center">
               <div className={`circle h-5 w-5 ${aqilevel(Aqi)} rounded-full`}></div>
               <p className="1st entry text-amber-400 font-bold">AQI</p>
@@ -91,7 +91,7 @@ const TodayHighlight = (props) => {
               </p>
               <p className="3rd entry">{Aqi.label}</p>
             </div>
-            <div className="visibility  glassmorphism_inside w-[50%] h-full sm:w-40 sm:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
+            <div className="visibility  glassmorphism_inside w-[50%] h-full lg:w-40 lg:h-30 rounded-2xl flex flex-col items-end justify-between p-4 roboto">
               <div className="flex items-center justify-between w-[100%] text-red-300 font-bold">
               <i class="fa-solid fa-eye-slash"></i>
               <p className="1st entry">Visibility</p>

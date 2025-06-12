@@ -80,7 +80,7 @@ body{
   color: rgb(255, 254, 254);
 }
 .bg-Clear {
-  background-image: url('/clearbackground.jpg');
+  background-image: url('/Clearbackground.png');
   background-size: cover;
   background-position: contain;
 }
