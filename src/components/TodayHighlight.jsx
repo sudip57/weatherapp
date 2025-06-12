@@ -2,7 +2,7 @@ import React from "react";
 import Card from "./Card";
 import { useState } from "react";
 const TodayHighlight = (props) => {
-  const { curweatherData, Aqi, curTime } = props;
+  const { curweatherData, Aqi, curTime,localsunrise,localsunset } = props;
   console.log("inside");
   function convertUnixToTime(unixTime) {
     const date = new Date(unixTime * 1000);
@@ -115,7 +115,7 @@ const TodayHighlight = (props) => {
 
             <div className="suninfo">
               <p className="text-amber-200 font-bold">Sunrise</p>
-              <p className="suntime font-bold text-2xl">{sunrise}</p>
+              <p className="suntime font-bold text-2xl">{localsunrise?(localsunrise):"00:00"}</p>
             </div>
           </div>
           <div className="tab h-[50%]  glassmorphism_inside w-full rounded-2xl flex flex-wrap justify-between items-center p-4 roboto text-white">
@@ -129,7 +129,7 @@ const TodayHighlight = (props) => {
 
             <div className="suninfo">
               <p className="text-rose-400 font-bold">Sunset</p>
-              <p className="suntime font-bold text-2xl">{sunset}</p>
+              <p className="suntime font-bold text-2xl">{localsunset?(localsunset):"00:00"}</p>
             </div>
           </div>
         </div>

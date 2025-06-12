@@ -27,7 +27,7 @@ const Main = (props) => {
       hour12: true
     });
   }
-  const { seven_day_forcast,curloc ,lat,lng,setcurloc,weatherData, curweatherData,Aqi,convertTimezone,unixToTime} = props;
+  const { seven_day_forcast,curloc ,lat,lng,setcurloc,weatherData, curweatherData,Aqi,convertTimezone,unixToTime,localsunset,localsunrise} = props;
   console.log('cur data inside main');
   const [curTime, setcurTime] = useState()
   const [sunset, setsunset] = useState()
@@ -49,7 +49,7 @@ const Main = (props) => {
         <div className="glassmorphism w-full h-1/2 rounded-2xl invisible sm:visible"></div>
       </div>
       <div className="right rounded-2xl flex flex-col mx-2 gap-2 w-[100%] sm:w-[60%] h-full">
-        <TodayHighlight curweatherData={curweatherData} getLocalTime={getLocalTime} Aqi={Aqi} curTime={curTime}/>
+        <TodayHighlight curweatherData={curweatherData} getLocalTime={getLocalTime} Aqi={Aqi} curTime={curTime} localsunrise={localsunrise} localsunset={localsunset}/>
         <DayForecast weatherData={weatherData}  seven_day_forcast={seven_day_forcast}/>
       </div>
     </div>

@@ -13,6 +13,8 @@ function App() {
   const [coords, setCoords] = useState({ lat, lng });
   const [seven_day_forcast, setseven_day_forcast] = useState([]);
   const [Aqi, setAqi] = useState({ value: "-", label: "", message: "" });
+  const [localsunrise, setlocalsunrise] = useState()
+  const [localsunset, setlocalsunset] = useState()
   const weatherBackgrounds = {
     Clear: "clearbackground.jpg",
     Clouds: "cloudbackground.gif",
@@ -26,30 +28,50 @@ function App() {
     Snow: "Snow.jpg",
     Smoke: "Smoke.png",
   };
-  function convertTimezone(offsetInSeconds) {
-    const nowUTC = new Date(
-      Date.now() + new Date().getTimezoneOffset() * 60000
-    );
-    const localTime = new Date(nowUTC.getTime() + offsetInSeconds * 1000);
+ function convertTimezone(offsetInSeconds) {
+  const nowUTC = new Date(Date.now() + new Date().getTimezoneOffset() * 60000);
+  const localTime = new Date(nowUTC.getTime() + offsetInSeconds * 1000);
 
-    const hours = String(localTime.getHours()).padStart(2, "0");
-    const minutes = String(localTime.getMinutes()).padStart(2, "0");
-    console.log(hours);
-    return `${hours}:${minutes}`;
-  }
-  function unixToTime(unixTimestamp) {
-    // Convert Unix timestamp (in seconds) to milliseconds
-    const date = new Date(unixTimestamp * 1000);
+  let hours = localTime.getHours();
+  const minutes = String(localTime.getMinutes()).padStart(2, "0");
 
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    console.log(hours);
-    return `${hours}:${minutes}`;
-  }
+  const ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12;
+  hours = hours ? hours : 12; // Convert hour '0' to '12'
+  hours = String(hours).padStart(2, "0");
+
+  return `${hours}:${minutes} ${ampm}`;
+}
+function unixToTime(unixTimestamp) {
+  const date = new Date(unixTimestamp * 1000);
+
+  let hours = date.getHours();
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  const ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  hours = String(hours).padStart(2, "0");
+
+  return `${hours}:${minutes} ${ampm}`;
+}
   useEffect(() => {
     setLat(coords.lat);
     setLng(coords.lng);
   }, [coords]);
+  const offsetMap = {
+    "-18000": "America/New_York", // UTC−5 (EST, winter)
+    "-14400": "America/New_York", // UTC−4 (EDT, summer)
+    "-21600": "America/Chicago",
+    "-25200": "America/Denver",
+    "-28800": "America/Los_Angeles",
+    19800: "Asia/Kolkata",
+    0: "UTC",
+    3600: "Europe/London",
+    7200: "Europe/Berlin",
+    32400: "Asia/Tokyo",
+    28800: "Asia/Shanghai",
+  };
   function interpretAQI(aqi) {
     const aqiLevels = {
       1: {
@@ -98,7 +120,42 @@ function App() {
   useEffect(() => {
     getCurrentLoc();
   }, []);
+  async function getSunriseSunset(lat, lon, timezone) {
+    const url = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lon}&date=today&formatted=0`;
 
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.status !== "OK") {
+        throw new Error("Failed to get data from Sunrise-Sunset API");
+      }
+
+      const { sunrise, sunset } = data.results;
+
+      // Convert UTC to local time
+      const sunriseLocal = new Date(sunrise).toLocaleTimeString("en-US", {
+        timeZone: timezone,
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+
+      const sunsetLocal = new Date(sunset).toLocaleTimeString("en-US", {
+        timeZone: timezone,
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+
+      console.log(`📍 Location: ${lat}, ${lon}`);
+      console.log(`🌅 Sunrise: ${sunriseLocal}`);
+      console.log(`🌇 Sunset: ${sunsetLocal}`);
+
+      return { sunrise: sunriseLocal, sunset: sunsetLocal };
+    } catch (error) {
+      console.error("Error fetching sunrise/sunset:", error);
+      return null;
+    }
+  }
   useEffect(() => {
     let intervalId;
     async function getWeatherInfo() {
@@ -136,6 +193,18 @@ function App() {
       if (intervalId) clearInterval(intervalId); // cleanup
     };
   }, [lat, lng]);
+useEffect(() => {
+  if (lat && lng && curweatherData?.timezone !== undefined) {
+    const fetchSunInfo = async () => {
+      const suninfo = await getSunriseSunset(lat, lng, offsetMap[curweatherData.timezone]);
+      setlocalsunrise(suninfo.sunrise)
+      setlocalsunset(suninfo.sunset)
+    };
+    fetchSunInfo(); 
+    console.log("🌍 Fetching sun info...");
+  }
+}, [lat, lng, curweatherData?.timezone]);
+
   useEffect(() => {
     console.log("useeff weather");
     console.log(weatherData);
@@ -145,83 +214,90 @@ function App() {
     }
     console.log(Aqi);
   }, [weatherData, curweatherData, Aqi]);
-  function Day_Night() {
-    if (curweatherData)
-      if (
-        convertTimezone(curweatherData.timezone) <
-          unixToTime(curweatherData.sys.sunrise) ||
-        convertTimezone(curweatherData.timezone) >
-          unixToTime(curweatherData.sys.sunset)
-      ) {
-        return false;
-      } else {
-        return true;
-      }
-  }
- function isDaytime(timezone, sunrise, sunset) {
-  const currentUTC = Math.floor(Date.now() / 1000); // current time in UTC (seconds)
+function isDaytime(sunrise, sunset, timezone) {
+  const now = new Date();
 
-  // DO NOT add timezone here. Sunrise and sunset are already in UTC.
-  return currentUTC >= sunrise && currentUTC < sunset;
+  // Get current time in the target timezone
+  const currentTimeStr = now.toLocaleTimeString("en-US", {
+    timeZone: timezone,
+    hour12: true,
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  });
+
+  const to24HourDate = (timeStr) => {
+    const today = new Date().toLocaleDateString("en-CA", { timeZone: timezone }); // YYYY-MM-DD
+    return new Date(`${today} ${timeStr}`);
+  };
+
+  const currentTime = to24HourDate(currentTimeStr);
+  const sunriseTime = to24HourDate(sunrise);
+  const sunsetTime = to24HourDate(sunset);
+  console.log(currentTime)
+  console.log(sunriseTime)
+  console.log(sunsetTime)
+  if(currentTime >= sunriseTime && currentTime <= sunsetTime){
+    return true;
+  }
+  return false;
 }
+
   return (
     <>
       {curweatherData ? (
-          <div
-        className={`app min-h-screen overflow-y-scroll w-full flex flex-col`}
-      >
-        {curweatherData?.sys && curweatherData?.weather[0]?.main ? (
-          isDaytime(
-            curweatherData.timezone,
-            curweatherData.sys.sunrise,
-            curweatherData.sys.sunset
-          ) ? (
-            <div className="image-container">
-              <img
-                src={
-                  weatherBackgrounds[curweatherData.weather[0].main] ||
-                  "Clearbackground.jpg"
-                }
-                alt={curweatherData.weather[0].main}
-              />
-            </div>
+        <div
+          className={`app min-h-screen overflow-y-scroll w-full flex flex-col`}
+        >
+          {curweatherData?.sys && curweatherData?.weather[0]?.main ? (
+            isDaytime(localsunrise,localsunset,offsetMap[curweatherData.timeZone]) ? (
+              <div className="image-container">
+                <img
+                  src={
+                    weatherBackgrounds[curweatherData.weather[0].main] ||
+                    "Clearbackground.jpg"
+                  }
+                  alt={curweatherData.weather[0].main}
+                />
+              </div>
+            ) : (
+              <div className="image-container">
+                <img src="Night.jpg" alt="Night" />
+              </div>
+            )
           ) : (
-            <div className="image-container">
-              <img src="Night.jpg" alt="Night" />
-            </div>
-          )
-        ) : (
-          <p>Loading weather info...</p>
-        )}
-        <div className="absolute w-[100%] h-full">
-          <Navbar
-            coords={coords}
-            setCoords={setCoords}
-            className="z-1 absolute"
-          />
-          <main className="flex flex-col mx-5  sm:flex sm:flex-row h-[87vh] sm:h-[86%]  overflow-y-scroll sm:overflow-y-hidden rounded-2xl">
-            <Sidebar />
-            <Main
-              curloc={curloc}
-              lat={lat}
-              lng={lng}
-              setcurloc={setcurloc}
-              weatherData={weatherData}
-              curweatherData={curweatherData}
-              seven_day_forcast={seven_day_forcast}
-              Aqi={Aqi}
-              convertTimezone={convertTimezone}
-              unixToTime={unixToTime}
+            <p>Loading weather info...</p>
+          )}
+          <div className="absolute w-[100%] h-full">
+            <Navbar
+              coords={coords}
+              setCoords={setCoords}
+              className="z-1 absolute"
             />
-          </main>
+            <main className="flex flex-col mx-5  sm:flex sm:flex-row h-[87vh] sm:h-[86%]  overflow-y-scroll sm:overflow-y-hidden rounded-2xl">
+              <Sidebar />
+              <Main
+                curloc={curloc}
+                lat={lat}
+                lng={lng}
+                setcurloc={setcurloc}
+                weatherData={weatherData}
+                curweatherData={curweatherData}
+                seven_day_forcast={seven_day_forcast}
+                Aqi={Aqi}
+                convertTimezone={convertTimezone}
+                unixToTime={unixToTime}
+                localsunrise={localsunrise}
+                localsunset={localsunset}
+              />
+            </main>
+          </div>
         </div>
-      </div>
       ) : (
         <div className="loadingState h-full flex justify-center items-center">
           <i className="fa-solid fa-gear text-white"></i>
         </div>
       )}
-    
     </>
   );
 }

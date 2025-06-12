@@ -12,29 +12,58 @@ const Today = (props) => {
     sunrise,
     sunset,
     convertTimezone,
-    unixToTime
+    unixToTime,
   } = props;
   console.log("cur data inside today");
+  console.log(convertTimezone(curweatherData.timezone))
+  console.log(unixToTime(sunrise))
+  console.log(unixToTime(sunset))
   //currentDate
-
-
   const [desc, setdesc] = useState("Loading...");
+ function timeToMinutes(timeStr) {
+  if (typeof timeStr !== "string" || !timeStr.includes(" ")) {
+    console.error("Invalid time string:", timeStr);
+    return null;
+  }
 
+  const [time, modifier] = timeStr.split(" ");
+  let [hours, minutes] = time.split(":").map(Number);
+
+  if (isNaN(hours) || isNaN(minutes)) {
+    console.error("Invalid time format:", timeStr);
+    return null;
+  }
+
+  if (modifier === "PM" && hours !== 12) {
+    hours += 12;
+  }
+  if (modifier === "AM" && hours === 12) {
+    hours = 0;
+  }
+
+  return hours * 60 + minutes;
+}
+
+function isDay(currentTime, sunrise, sunset) {
+  const currentMinutes = timeToMinutes(currentTime);
+  const sunriseMinutes = timeToMinutes(sunrise);
+  const sunsetMinutes = timeToMinutes(sunset);
+
+  return currentMinutes >= sunriseMinutes && currentMinutes < sunsetMinutes;
+}
   useEffect(() => {
     if (curweatherData && sunset && sunrise) {
-      if (sunset && sunrise) {
-        if (
-          convertTimezone(curweatherData.timezone) > unixToTime(sunset) ||
-          convertTimezone(curweatherData.timezone) < unixToTime(sunrise)
-        ) {
+        if (!isDay(convertTimezone(curweatherData.timezone,unixToTime(sunrise),unixToTime(sunset)))) {
           if (curweatherData.weather[0].main == "Clear") {
             setdesc("Moon");
           } else {
             setdesc(curweatherData.weather[0].main);
           }
+        } else {
+          console.log("not working...............")
+          setdesc(curweatherData.weather[0].main);
         }
       }
-    }
   }, [curweatherData, sunset, sunrise]);
   function getCurrentDayAndDate() {
     const now = new Date();
